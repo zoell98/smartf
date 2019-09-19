@@ -45,6 +45,10 @@ public class UpMqtt {
         options.setConnectionTimeout(50);
         //设置回话心跳时间， 单位 秒  每隔多长时间向客户端发送消息判断客户端是否在线，但是没有重连机制，只能判断客户端是否存活
         options.setKeepAliveInterval(12);
+        //设置mqtt连入用户名
+        options.setUserName(Config.getUsername());
+        //设置mqtt连入用户名密码
+        options.setPassword(Config.getPassword().toCharArray());
         return options;
     }
 
@@ -63,6 +67,7 @@ public class UpMqtt {
         }
 
         //重连后需要 重新订阅 所有设备
+        subscribe("6af6188e14aa");
     }
 
     //发布信息
@@ -94,6 +99,7 @@ public class UpMqtt {
     }
 
     public void firstconnect(){
+        System.out.println("第一次连接ing");
         while (true){
             try{
                 Thread.sleep(2000);
@@ -122,6 +128,14 @@ public class UpMqtt {
 
         static String getHost(){
             return config.mqttConfig.getHost();
+        }
+
+        static String getPassword(){
+            return config.mqttConfig.getMqtt_password();
+        }
+
+        static String getUsername(){
+            return config.mqttConfig.getMqtt_username();
         }
     }
 

@@ -6,6 +6,7 @@ import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import net.sf.json.JSONObject;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -31,6 +32,11 @@ public class UpCallBack implements MqttCallback {
     //该方法为单线程操作， 数据处理（处理，存库influxdb） 最好放到线程中
     @Override
     public void messageArrived(String topic , MqttMessage mqttMessage) throws Exception{
+        logger.info("上线 -- 收到环境数据");
+        //string 转换成 json
+        String jsonstr = new String(mqttMessage.getPayload());
+        JSONObject jsonObject = JSONObject.fromObject(jsonstr);
+        // json 取出数据 存入influxdb
 
     }
 

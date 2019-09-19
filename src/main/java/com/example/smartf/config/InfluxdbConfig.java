@@ -1,5 +1,6 @@
 package com.example.smartf.config;
 
+import com.example.smartf.tool.UID;
 import org.influxdb.InfluxDB;
 import org.influxdb.InfluxDBFactory;
 import org.slf4j.Logger;
@@ -8,6 +9,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+
+import java.util.UUID;
 
 @Configuration
 @PropertySource(value = "classpath:config/influxdb.properties")
@@ -29,6 +32,7 @@ public class InfluxdbConfig {
 
     @Value("${influxdb.db}")
     private String dbName;
+
 
     @Bean(name = "influxdb")
     public InfluxDB influxdbConnect(){
